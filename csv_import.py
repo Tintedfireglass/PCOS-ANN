@@ -1,42 +1,21 @@
 import csv
-import matplotlib as mp
+import matplotlib.pyplot as mp
 import numpy as np
 
-def toflt(a,cnt):
-    a1=[]
-    for i in a:
-        
-        try:
-            if (type(eval(i)))=='<class \'int\'>':
-                print("int")
-                a1.append(int(i))
-            elif (type(eval(i)))=="<class \'float\'>":
-                print("float")
-                a1.append(float((i)))
-        except Exception as e:
-            pass
-    #print(a1,"\t\t\t\t\t",cnt)#debug_2
-    return a1
-        
+
 
 f=open("PCOS_dataset.csv","r")
 readerobj=csv.reader(f)
 c=0
-x=np.empty((541,44),float)
-for row in readerobj:
-    if c==0:
-        c+=1
-        continue
-    else:
-        r1=toflt(row,c)
-        print(np.array(r1))#debug_1
-        #np.append(x,np.array(r1))
-    c+=1
-# print(x)
-# for i in range(0,len(x)-1):
-#     print(x[i,2])
+x = np.genfromtxt("PCOS_dataset.csv",skip_header=1, delimiter=",")
 
-#csv to numpy
-
-
-    
+X=[]
+Y=[]
+Z=[]
+for i in range(0,x.shape[0]):
+    X.append(x[i,2])
+    Y.append(x[i,6])
+    Z.append(x[i,5])
+mp.plot(X,Y,'o')
+mp.plot(X,Z,'x')
+mp.show()
